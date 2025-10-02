@@ -20,5 +20,5 @@ def receber_dados():
 # Inicia o servidor
 if __name__ == "__main__":
     # Usa porta do Render, ou 5000 como fallback
-    port = int(os.environ.get("PORT", 5000))
+    port = int(os.environ.get("PORT", 5001))
     app.run(host="0.0.0.0", port=port)
