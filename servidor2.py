@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 
-app = Flask(name)
+app = Flask(__name__)
 CORS(app)  # Permite requisições de qualquer origem
 
 votos = {"Opção A": 0, "Opção B": 0}
@@ -19,5 +19,5 @@ def votar():
 def resultados():
     return jsonify(votos), 200
 
-if name == "main":
+if __name__ == "main":
     app.run(host="0.0.0.0", port=5001)
