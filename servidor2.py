@@ -3,9 +3,8 @@ from flask_cors import CORS
 import os
 
 app = Flask(__name__)
-CORS(app)  # Permite requisições de qualquer origem
+CORS(app, resources={r"/*": {"origins": "*"}})
 
-# Armazenamento simples em memória
 votos = {"Opção A": 0, "Opção B": 0}
 
 @app.route("/vote", methods=["POST"])
