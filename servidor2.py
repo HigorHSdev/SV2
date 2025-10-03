@@ -24,28 +24,30 @@ def salvar_votos(dados):
 def home():
     return jsonify({"message": "Servidor 2 rodando!"})
 
-#Rota para receber votos
 @app.route("/vote", methods=["POST"])
-def votar():
+def receber_dados():
     data = request.get_json()
-    nome = data.get("nome")
-    opcao = data.get("opcao")
 
-    if not nome or not opcao:
-        return jsonify({"status": "erro", "mensagem": "Nome e opção são obrigatórios"}), 400
+    if not data.get("nome") or not data.get("opcao"):
+        return jsonify({"erro": "Nome e opção são obrigatórios"}), 400
 
     votos_atuais = ler_votos()
-    votos_atuais["votos"].append({"nome": nome, "opcao": opcao})
+    votos_atuais["votos"].append(data)  # adiciona novo voto
     salvar_votos(votos_atuais)
 
     return jsonify({"status": "sucesso", "mensagem": "Voto registrado"})
 
-#Rota para mostrar resultados (apenas total)
 @app.route("/results", methods=["GET"])
-def resultados():
+def listar_votos():
     votos = ler_votos()
     total = len(votos["votos"])
     return jsonify({"total": total})
+
+#Rota de debug/admin para ver todos os votos
+@app.route("/allvotes", methods=["GET"])
+def all_votes():
+    votos = ler_votos()
+    return jsonify(votos)
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
