@@ -1,3 +1,6 @@
 {
-    "votos": []
+    "votos": [
+        {"nome": "Higor", "opção": "opção A"},
+        {"nome": "Maria", "opção": "opção B"}
+    ]
 }
